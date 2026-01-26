@@ -1,0 +1,108 @@
+// Prediction Market Inconsistency Tracker Schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Venues: Polymarket, Kalshi, Manifold, etc.
+model Venue {
+  id        String   @id
+  name      String
+  url       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  markets   Market[]
+}
+
+// Individual markets from each venue
+model Market {
+  id           String    @id @default(cuid())
+  externalId   String    // ID from the source venue
+  venueId      String
+  venue        Venue     @relation(fields: [venueId], references: [id])
+  title        String
+  description  String?
+  category     String?
+  status       String    @default("active") // active, resolved, closed
+  resolution   String?   // YES, NO, etc. if resolved
+  url          String?
+  volume       Float?    // Total trading volume
+  liquidity    Float?
+  startDate    DateTime?
+  endDate      DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  outcomes     Outcome[]
+  groupId      String?
+  group        MarketGroup? @relation(fields: [groupId], references: [id])
+
+  @@unique([venueId, externalId])
+  @@index([title])
+  @@index([groupId])
+}
+
+// Outcomes/options within a market
+model Outcome {
+  id          String   @id @default(cuid())
+  externalId  String?  // ID from the source venue
+  marketId    String
+  market      Market   @relation(fields: [marketId], references: [id], onDelete: Cascade)
+  name        String
+  price       Float    // Current price (0-1 probability)
+  previousPrice Float? // Previous price for trend
+  volume      Float?   // Volume for this outcome
+  lastUpdated DateTime @default(now())
+
+  @@unique([marketId, name])
+  @@index([marketId])
+}
+
+// Canonical grouped questions (matched across venues)
+model MarketGroup {
+  id              String   @id @default(cuid())
+  canonicalTitle  String
+  category        String?
+  isVerified      Boolean  @default(false) // Admin verified matching
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  markets         Market[]
+  opportunities   Opportunity[]
+
+  @@index([canonicalTitle])
+}
+
+// Detected opportunities/inconsistencies
+model Opportunity {
+  id            String   @id @default(cuid())
+  groupId       String
+  group         MarketGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  type          String   // "cross_venue_divergence", "internal_sanity", "arbitrage"
+  score         Float    // Opportunity score (higher = better)
+  spread        Float    // Price spread percentage
+  description   String   // Human-readable explanation
+  details       String   // JSON with detailed breakdown
+  avgLiquidity  Float?   // Average liquidity across venues
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([groupId])
+  @@index([score])
+  @@index([isActive])
+}
+
+// Sync/refresh metadata
+model SyncLog {
+  id        String   @id @default(cuid())
+  startedAt DateTime @default(now())
+  endedAt   DateTime?
+  status    String   @default("running") // running, completed, failed
+  marketsProcessed Int @default(0)
+  opportunitiesFound Int @default(0)
+  error     String?
+}
