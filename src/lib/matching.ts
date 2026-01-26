@@ -89,8 +89,8 @@ export function calculateMatchScore(
   }
 
   // 3. Specific date/year match bonus
-  const years1 = title1.match(/20\d{2}/g) || [];
-  const years2 = title2.match(/20\d{2}/g) || [];
+  const years1: string[] = title1.match(/20\d{2}/g) ?? [];
+  const years2: string[] = title2.match(/20\d{2}/g) ?? [];
   const commonYears = years1.filter(y => years2.includes(y));
   if (commonYears.length > 0) {
     score += 10;
