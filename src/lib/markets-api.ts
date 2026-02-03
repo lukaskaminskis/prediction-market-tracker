@@ -130,10 +130,9 @@ async function fetchKalshiMarkets(): Promise<MarketData[]> {
     return data.markets.map((market) => {
       const yesPrice = (market.last_price || 50) / 100;
 
-      // Kalshi: use search URL with market title for reliable linking
-      // Direct market URLs often break when markets resolve
-      const searchQuery = encodeURIComponent(market.title);
-      const url = `https://kalshi.com/browse?q=${searchQuery}`;
+      // Kalshi: link to all markets category page
+      // Kalshi doesn't have a search URL - they use category-based navigation
+      const url = `https://kalshi.com/category/all`;
 
       return {
         id: market.market_ticker,

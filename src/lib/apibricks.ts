@@ -178,7 +178,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       description: "Will Bitcoin reach $100,000 by the end of 2025?",
       category: "Crypto",
       status: "active",
-      url: "https://kalshi.com/browse?q=Bitcoin%20100K%202025",
+      url: "https://kalshi.com/category/all",
       volume: 1800000,
       liquidity: 320000,
       outcomes: [
@@ -218,7 +218,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "Federal Reserve rate cut Q1 2026",
       category: "Economics",
       status: "active",
-      url: "https://kalshi.com/browse?q=Federal%20Reserve%20rate%20cut%20Q1%202026",
+      url: "https://kalshi.com/category/all",
       volume: 2100000,
       liquidity: 410000,
       outcomes: [
@@ -270,7 +270,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "Starship successful orbital flight 2026",
       category: "Space",
       status: "active",
-      url: "https://kalshi.com/browse?q=Starship%20orbital%20flight%202026",
+      url: "https://kalshi.com/category/all",
       volume: 680000,
       liquidity: 145000,
       outcomes: [
@@ -296,7 +296,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "GOP wins House in 2026 midterms",
       category: "Politics",
       status: "active",
-      url: "https://kalshi.com/browse?q=GOP%20House%202026%20midterms",
+      url: "https://kalshi.com/category/all",
       volume: 4200000,
       liquidity: 780000,
       outcomes: [
@@ -337,7 +337,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "First company to $5 trillion valuation",
       category: "Finance",
       status: "active",
-      url: "https://kalshi.com/browse?q=company%205%20trillion%20valuation",
+      url: "https://kalshi.com/category/all",
       volume: 920000,
       liquidity: 210000,
       outcomes: [
