@@ -155,6 +155,7 @@ export function getVenueInfo(venueId: VenueId) {
 }
 
 // Demo/mock data for development without API key
+// Uses search URLs to ensure links work even for mock data
 export function getMockMarkets(): ApibricksMarket[] {
   return [
     {
@@ -163,7 +164,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       description: "Resolves YES if BTC price exceeds $100,000 at any point before December 31, 2025",
       category: "Crypto",
       status: "active",
-      url: "https://polymarket.com/event/btc-100k",
+      url: "https://polymarket.com/markets?_q=Bitcoin%20100000%202025",
       volume: 5200000,
       liquidity: 850000,
       outcomes: [
@@ -177,7 +178,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       description: "Will Bitcoin reach $100,000 by the end of 2025?",
       category: "Crypto",
       status: "active",
-      url: "https://kalshi.com/markets/btc-100k-2025",
+      url: "https://kalshi.com/browse?q=Bitcoin%20100K%202025",
       volume: 1800000,
       liquidity: 320000,
       outcomes: [
@@ -190,7 +191,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "Will BTC reach $100,000 before 2026?",
       category: "Crypto",
       status: "active",
-      url: "https://manifold.markets/btc-100k-2025",
+      url: "https://manifold.markets/browse?q=Bitcoin%20100000%202026",
       volume: 45000,
       liquidity: 12000,
       outcomes: [
@@ -204,7 +205,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       description: "Resolves YES if Federal Reserve announces rate cut in Jan-Mar 2026",
       category: "Economics",
       status: "active",
-      url: "https://polymarket.com/event/fed-rate-q1-2026",
+      url: "https://polymarket.com/markets?_q=Fed%20cut%20rates%20Q1%202026",
       volume: 3400000,
       liquidity: 620000,
       outcomes: [
@@ -217,7 +218,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "Federal Reserve rate cut Q1 2026",
       category: "Economics",
       status: "active",
-      url: "https://kalshi.com/markets/fed-q1-2026",
+      url: "https://kalshi.com/browse?q=Federal%20Reserve%20rate%20cut%20Q1%202026",
       volume: 2100000,
       liquidity: 410000,
       outcomes: [
@@ -230,7 +231,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "Will AI pass the Turing test by 2027?",
       category: "Technology",
       status: "active",
-      url: "https://polymarket.com/event/ai-turing-2027",
+      url: "https://polymarket.com/markets?_q=AI%20Turing%20test%202027",
       volume: 890000,
       liquidity: 180000,
       outcomes: [
@@ -243,7 +244,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "AI passes Turing test before 2027",
       category: "AI",
       status: "active",
-      url: "https://manifold.markets/ai-turing-2027",
+      url: "https://manifold.markets/browse?q=AI%20Turing%20test%202027",
       volume: 32000,
       liquidity: 8500,
       outcomes: [
@@ -256,7 +257,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "Will SpaceX Starship reach orbit in 2026?",
       category: "Space",
       status: "active",
-      url: "https://polymarket.com/event/starship-orbit-2026",
+      url: "https://polymarket.com/markets?_q=SpaceX%20Starship%20orbit%202026",
       volume: 1250000,
       liquidity: 290000,
       outcomes: [
@@ -269,7 +270,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "Starship successful orbital flight 2026",
       category: "Space",
       status: "active",
-      url: "https://kalshi.com/markets/starship-2026",
+      url: "https://kalshi.com/browse?q=Starship%20orbital%20flight%202026",
       volume: 680000,
       liquidity: 145000,
       outcomes: [
@@ -282,7 +283,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "2026 US Midterm Elections: Republicans win House?",
       category: "Politics",
       status: "active",
-      url: "https://polymarket.com/event/2026-midterms-house",
+      url: "https://polymarket.com/markets?_q=2026%20Midterm%20Republicans%20House",
       volume: 8900000,
       liquidity: 1200000,
       outcomes: [
@@ -295,7 +296,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "GOP wins House in 2026 midterms",
       category: "Politics",
       status: "active",
-      url: "https://kalshi.com/markets/2026-house-gop",
+      url: "https://kalshi.com/browse?q=GOP%20House%202026%20midterms",
       volume: 4200000,
       liquidity: 780000,
       outcomes: [
@@ -308,7 +309,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "Republicans control House after 2026 elections",
       category: "Politics",
       status: "active",
-      url: "https://manifold.markets/2026-house-rep",
+      url: "https://manifold.markets/browse?q=Republicans%20House%202026",
       volume: 78000,
       liquidity: 21000,
       outcomes: [
@@ -322,7 +323,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "Which company reaches $5T market cap first?",
       category: "Finance",
       status: "active",
-      url: "https://polymarket.com/event/5t-market-cap",
+      url: "https://polymarket.com/markets?_q=company%205T%20market%20cap",
       volume: 2100000,
       liquidity: 450000,
       outcomes: [
@@ -336,7 +337,7 @@ export function getMockMarkets(): ApibricksMarket[] {
       title: "First company to $5 trillion valuation",
       category: "Finance",
       status: "active",
-      url: "https://kalshi.com/markets/5t-company",
+      url: "https://kalshi.com/browse?q=company%205%20trillion%20valuation",
       volume: 920000,
       liquidity: 210000,
       outcomes: [

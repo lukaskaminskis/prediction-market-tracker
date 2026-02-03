@@ -78,12 +78,10 @@ async function fetchPolymarketMarkets(): Promise<MarketData[]> {
     const data = await domeApiRequest<PolymarketResponse>("/polymarket/markets?limit=100");
 
     return data.markets.map((market) => {
-      // Polymarket URL: use condition_id for more reliable linking
-      // Format: https://polymarket.com/event/[slug] or fallback to search
-      const slug = market.market_slug || market.condition_id;
-      const url = slug
-        ? `https://polymarket.com/event/${slug}`
-        : `https://polymarket.com/markets`;
+      // Polymarket: use search URL with market title for reliable linking
+      // Direct event URLs often break when markets resolve or slugs change
+      const searchQuery = encodeURIComponent(market.title);
+      const url = `https://polymarket.com/markets?_q=${searchQuery}`;
 
       return {
         id: market.condition_id || market.market_slug,
@@ -132,14 +130,10 @@ async function fetchKalshiMarkets(): Promise<MarketData[]> {
     return data.markets.map((market) => {
       const yesPrice = (market.last_price || 50) / 100;
 
-      // Kalshi URL: prefer event_ticker, include market_ticker if available
-      // Format: https://kalshi.com/markets/[event-ticker] or with specific market
-      let url = "https://kalshi.com/markets";
-      if (market.event_ticker) {
-        // Convert ticker to URL-friendly format (lowercase, replace underscores)
-        const eventSlug = market.event_ticker.toLowerCase().replace(/_/g, "-");
-        url = `https://kalshi.com/markets/${eventSlug}`;
-      }
+      // Kalshi: use search URL with market title for reliable linking
+      // Direct market URLs often break when markets resolve
+      const searchQuery = encodeURIComponent(market.title);
+      const url = `https://kalshi.com/browse?q=${searchQuery}`;
 
       return {
         id: market.market_ticker,
